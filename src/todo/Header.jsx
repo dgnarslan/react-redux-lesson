@@ -1,24 +1,24 @@
-export default function Header({user, setUser}){
+import { useSelector} from "react-redux";
+import {loginhandle, logOutHandle} from "../utils.js";
+export default function Header(){
 
-    const loginHandle = (user) => {
-        setUser(user)
-    }
-    const logoutHandle = ()=>{
-        setUser(false)
+    const {user} = useSelector(state => state.auth)
+    const login = (user) => {
+       loginhandle(user)
     }
     return(
         <header>
            <h2>Logo</h2>
             {!user && (
                 <nav>
-                    <button onClick={()=> loginHandle({id: 1, username:'tayfunerbilen'})}>Tayfun Erbilen olarak giriş yap</button>
-                    <button onClick={()=> loginHandle({id: 2, username:'prototurk'})}>Prototürk olarak giriş yap</button>
+                    <button onClick={()=> login({id: 1, username:'tayfunerbilen'})}>Tayfun Erbilen olarak giriş yap</button>
+                    <button onClick={()=> login({id: 2, username:'prototurk'})}>Prototürk olarak giriş yap</button>
                 </nav>
             )}
             {user && (
                 <nav>
                     Hoşgeldin, {user.username}
-                    <button onClick={logoutHandle}>Çıkış yap</button>
+                    <button onClick={logOutHandle}>Çıkış yap</button>
                 </nav>
             )}
         </header>

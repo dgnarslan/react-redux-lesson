@@ -1,10 +1,17 @@
-export default function TodoItem({setTodos,todo, user}){
-    const deleteHandle= ()=>{
-        setTodos(todos => todos.filter(t => t.id !== todo.id) )
+import { useSelector , useDispatch} from "react-redux";
+import {deleteTodo} from "../stores/todo.js";
+import {modal} from "../utils.js";
+
+export default function TodoItem({todo}){
+
+    const dispatch = useDispatch()
+    const {user} = useSelector(state => state.auth)
+    const deleteHandle = ()=>{
+    dispatch(deleteTodo(todo.id))
     }
 
-    const editHandle = ()=>{
-
+    const editHandle = ()=> {
+       modal('edit-todo',todo)
     }
 
     return(
